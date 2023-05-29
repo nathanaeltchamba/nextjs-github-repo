@@ -236,3 +236,7 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.home-title h1 {
+  text-align: center;
+}

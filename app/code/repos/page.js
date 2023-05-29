@@ -1,14 +1,20 @@
 import Link from "next/link";
-import { FaStar, FaCodeBranch, FaEye } from "react-icons/fa";
+import { FaStar, FaCodeBranch, FaEye, FaCalendar} from "react-icons/fa";
 
 async function fetchRepos () {
-    const response = await fetch('https://api.github.com/users/nathanaeltchamba/repos');
+    const response = await fetch('https://api.github.com/users/nathanaeltchamba/repos?sort=pushed', {
+        next: {
+            revalidate: 60
+        }
+    });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
+    
     const repos = await response.json()
     return repos;
 }
+
 
 const ReposPage = async () => {
     const repos = await fetchRepos();
@@ -24,13 +30,13 @@ const ReposPage = async () => {
                         <p>{repo.description}</p>
                         <div className="repo-details">
                             <span>
-                                <FaStar/> {repo.stargazers_count}
+                                <FaCalendar /> { new Date(repo.created_at).toLocaleDateString()}
                             </span>
                             <span>
-                                <FaCodeBranch/> {repo.forks_count}
+                                <FaCodeBranch /> {repo.forks_count}
                             </span>
                             <span>
-                                <FaEye/> {repo.watchers_count}
+                                <FaEye /> {repo.watchers_count}
                             </span>
                         </div>
                     </Link>
