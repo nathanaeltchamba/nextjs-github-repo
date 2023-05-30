@@ -19,10 +19,10 @@ const RepoDirs = async ({ name }) => {
     return (
         <>
             <h3>Directories</h3>
-            <ul>
+            <ul className="no-bullet">
                 {dirs.map((dir) => (
                     <li key={dir.path}>
-                        <Link href={`/code/repos/${name}/${dir.path}`}>{dir.path}</Link>
+                        <Link className="no-underline" href={`/code/repos/${name}/${dir.path}`}>{dir.path}</Link>
                     </li>
                 ))}
             </ul>
